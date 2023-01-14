@@ -6,10 +6,7 @@ import com.lucaspetrocini.notes.feature.data.database.NoteDatabase
 import com.lucaspetrocini.notes.feature.data.database.dao.NoteDao
 import com.lucaspetrocini.notes.feature.data.repository.NoteRepositoryImpl
 import com.lucaspetrocini.notes.feature.domain.repository.NoteRepository
-import com.lucaspetrocini.notes.feature.domain.usecase.AddNoteUseCase
-import com.lucaspetrocini.notes.feature.domain.usecase.DeleteNoteUseCase
-import com.lucaspetrocini.notes.feature.domain.usecase.GetAllNotesUseCase
-import com.lucaspetrocini.notes.feature.domain.usecase.NoteUseCases
+import com.lucaspetrocini.notes.feature.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +39,8 @@ class AppModule {
         return NoteUseCases(
             getAllNotes = GetAllNotesUseCase(repository),
             deleteNote = DeleteNoteUseCase(repository),
-            addNote = AddNoteUseCase(repository)
+            addNote = AddNoteUseCase(repository),
+            getNoteById = GetNoteByIdUseCase(repository)
         )
     }
 
