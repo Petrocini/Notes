@@ -1,9 +1,8 @@
 package com.lucaspetrocini.notes.di
 
+import android.app.Application
 import androidx.room.Room
-import com.lucaspetrocini.notes.Application
 import com.lucaspetrocini.notes.feature.data.database.NoteDatabase
-import com.lucaspetrocini.notes.feature.data.database.dao.NoteDao
 import com.lucaspetrocini.notes.feature.data.repository.NoteRepositoryImpl
 import com.lucaspetrocini.notes.feature.domain.repository.NoteRepository
 import com.lucaspetrocini.notes.feature.domain.usecase.*
@@ -15,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
 
     @Provides
     @Singleton
@@ -43,5 +42,4 @@ class AppModule {
             getNoteById = GetNoteByIdUseCase(repository)
         )
     }
-
 }

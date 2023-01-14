@@ -18,10 +18,10 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun insertNote(note: Note) {
-        return dao.insertNote(note)
+        dao.insertNote(note)
     }
 
     override suspend fun deleteNote(note: Note) {
-        return dao.deleteNote(note)
+        dao.deleteNote(note)
     }
 }

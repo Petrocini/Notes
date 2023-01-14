@@ -21,7 +21,6 @@ import com.lucaspetrocini.notes.feature.presentation.notes.components.OrderSecti
 import com.lucaspetrocini.notes.feature.presentation.util.Screen
 import kotlinx.coroutines.launch
 
-
 @ExperimentalAnimationApi
 @Composable
 fun NotesScreen(
@@ -116,4 +115,5 @@ fun NotesScreen(
             }
         }
     }
+
 }

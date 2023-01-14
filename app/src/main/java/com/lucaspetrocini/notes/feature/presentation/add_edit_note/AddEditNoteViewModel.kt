@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lucaspetrocini.notes.feature.domain.model.InvalidNoteException
 import com.lucaspetrocini.notes.feature.domain.model.Note
 import com.lucaspetrocini.notes.feature.domain.usecase.NoteUseCases
@@ -19,20 +18,18 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditNoteViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _noteTitle = mutableStateOf(NoteTextFieldState(
         hint = "Enter title..."
     ))
-
     val noteTitle: State<NoteTextFieldState> = _noteTitle
 
     private val _noteContent = mutableStateOf(NoteTextFieldState(
-        hint = "Enter some content..."
+        hint = "Enter some content"
     ))
-
-    val noteContent: State<NoteTextFieldState> = _noteTitle
+    val noteContent: State<NoteTextFieldState> = _noteContent
 
     private val _noteColor = mutableStateOf(Note.noteColors.random().toArgb())
     val noteColor: State<Int> = _noteColor
@@ -44,7 +41,7 @@ class AddEditNoteViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>("noteId")?.let { noteId ->
-            if (noteId != -1) {
+            if(noteId != -1) {
                 viewModelScope.launch {
                     noteUseCases.getNoteById(noteId)?.also { note ->
                         currentNoteId = note.id
@@ -52,7 +49,7 @@ class AddEditNoteViewModel @Inject constructor(
                             text = note.title,
                             isHintVisible = false
                         )
-                        _noteContent.value = noteContent.value.copy(
+                        _noteContent.value = _noteContent.value.copy(
                             text = note.content,
                             isHintVisible = false
                         )
@@ -66,23 +63,25 @@ class AddEditNoteViewModel @Inject constructor(
     fun onEvent(event: AddEditNoteUiState) {
         when(event) {
             is AddEditNoteUiState.EnteredTitle -> {
-                _noteTitle.value =  noteTitle.value.copy(
+                _noteTitle.value = noteTitle.value.copy(
                     text = event.value
                 )
             }
             is AddEditNoteUiState.ChangeTitleFocus -> {
                 _noteTitle.value = noteTitle.value.copy(
-                    isHintVisible = !event.focusState.isFocused && noteTitle.value.text.isBlank()
+                    isHintVisible = !event.focusState.isFocused &&
+                            noteTitle.value.text.isBlank()
                 )
             }
             is AddEditNoteUiState.EnteredContent -> {
-                _noteContent.value = noteContent.value.copy(
+                _noteContent.value = _noteContent.value.copy(
                     text = event.value
                 )
             }
             is AddEditNoteUiState.ChangeContentFocus -> {
-                _noteContent.value = noteContent.value.copy(
-                    isHintVisible = !event.focusState.isFocused && noteContent.value.text.isBlank()
+                _noteContent.value = _noteContent.value.copy(
+                    isHintVisible = !event.focusState.isFocused &&
+                            _noteContent.value.text.isBlank()
                 )
             }
             is AddEditNoteUiState.ChangeColor -> {
@@ -93,18 +92,18 @@ class AddEditNoteViewModel @Inject constructor(
                     try {
                         noteUseCases.addNote(
                             Note(
-                                id = currentNoteId,
                                 title = noteTitle.value.text,
                                 content = noteContent.value.text,
                                 timestamp = System.currentTimeMillis(),
-                                color = noteColor.value
+                                color = noteColor.value,
+                                id = currentNoteId
                             )
                         )
                         _eventFlow.emit(UiEvent.SaveNote)
-                    } catch (e: InvalidNoteException) {
+                    } catch(e: InvalidNoteException) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message ?: "Couldn't save note "
+                                message = e.message ?: "Couldn't save note"
                             )
                         )
                     }
