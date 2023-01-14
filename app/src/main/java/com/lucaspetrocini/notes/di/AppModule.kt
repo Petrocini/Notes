@@ -2,10 +2,10 @@ package com.lucaspetrocini.notes.di
 
 import android.app.Application
 import androidx.room.Room
-import com.lucaspetrocini.notes.feature.data.database.NoteDatabase
-import com.lucaspetrocini.notes.feature.data.repository.NoteRepositoryImpl
-import com.lucaspetrocini.notes.feature.domain.repository.NoteRepository
-import com.lucaspetrocini.notes.feature.domain.usecase.*
+import com.lucaspetrocini.notes.data.database.NoteDatabase
+import com.lucaspetrocini.notes.data.repository.NoteRepositoryImpl
+import com.lucaspetrocini.notes.domain.repository.NoteRepository
+import com.lucaspetrocini.notes.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

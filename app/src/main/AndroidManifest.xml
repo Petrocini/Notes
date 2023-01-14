@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Notes"
         tools:targetApi="31">
         <activity
-            android:name=".feature.presentation.MainActivity"
+            android:name="com.lucaspetrocini.notes.presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Notes">
             <intent-filter>
