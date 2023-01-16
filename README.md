@@ -38,7 +38,5 @@ Para instalar o projeto <Notes>, siga estas etapas:
 
 Git: 
 ```
-<git clone https://github.com/Petrocini/pokedex-java.git>
+<git clone https://github.com/Petrocini/Notes.git>
 ```
-
-[⬆ Voltar ao topo](#pokedex-java)<br>
